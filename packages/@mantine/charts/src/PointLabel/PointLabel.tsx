@@ -1,10 +1,13 @@
+import { GridChartBaseProps } from './../types';
+
 interface PointLabelProps {
   x?: number;
   y?: number;
   value?: number;
+  valueFormatter?: GridChartBaseProps['valueFormatter'];
 }
 
-export function PointLabel({ x, y, value }: PointLabelProps) {
+export function PointLabel({ x, y, value, valueFormatter }: PointLabelProps) {
   return (
     <g transform={`translate(${x},${y})`}>
       <text
@@ -16,7 +19,7 @@ export function PointLabel({ x, y, value }: PointLabelProps) {
         fill="var(--chart-text-color, var(--mantine-color-dimmed))"
         fontSize={8}
       >
-        {value}
+        {(value && valueFormatter?.(value)) || value}
       </text>
     </g>
   );
